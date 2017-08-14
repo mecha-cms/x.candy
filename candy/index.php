@@ -24,7 +24,7 @@ Hook::set([
     'page.css',
     'page.description',
     'page.js'
-], 'fn_candy_x', 1); // Same with the `fn_block_x` stack!
+], 'fn_candy_x', 0); // Same with the `fn_block_x` stack!
 
 Hook::set([
     'page.content',
