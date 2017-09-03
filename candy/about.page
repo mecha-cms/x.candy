@@ -1,9 +1,9 @@
 ---
-title: Candies
+title: Candy
 description: Embed global variables in page content.
 author: Taufik Nurrohman
 type: Markdown
-version: 1.0.0
+version: 1.1.0
 ...
 
 Common patterns:

@@ -1,11 +1,11 @@
 <?php
 
-function fn_candy_x($content) {
+function fn_candy_x($content, $lot = []) {
     // Escape syntax is not available!
     return $content;
 }
 
-function fn_candy($content) {
+function fn_candy($content, $lot = []) {
     if (strpos($content, '%{') === false) {
         return $content;
     }
@@ -20,15 +20,15 @@ function fn_candy($content) {
 }
 
 Hook::set([
-    'page.content',
-    'page.css',
-    'page.description',
-    'page.js'
+    '*.content',
+    '*.css',
+    '*.description',
+    '*.js'
 ], 'fn_candy_x', 0); // Same with the `fn_block_x` stack!
 
 Hook::set([
-    'page.content',
-    'page.css',
-    'page.description',
-    'page.js'
+    '*.content',
+    '*.css',
+    '*.description',
+    '*.js'
 ], 'fn_candy', 1); // Same with the `fn_block` stack!
