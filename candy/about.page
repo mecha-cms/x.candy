@@ -84,7 +84,7 @@ Add your custom syntax or replace the default syntax in the `v` property, remove
 ~~~ .php
 [
     'v' => [
-        'asset' => '%{url}%/lot/asset'
+        'asset' => 'http://127.0.0.1/lot/asset'
         …
     ],
     'x' => [ … ]
