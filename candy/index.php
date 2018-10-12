@@ -12,11 +12,11 @@ function fn_candy($content, $lot = []) {
     $c = Plugin::state(__DIR__);
     $cc = Lot::get(null, []);
     if (!empty($c['x'])) {
-        $c['v'] = array_replace_recursive($c['v'], $c['x']);
+        $c['v'] = extend($c['v'], $c['x']);
     }
-    $cc = array_replace_recursive($cc, $c['v']);
+    $cc = extend($cc, $c['v']);
     $cc['$'] = isset($cc['page']) ? $cc['page'] : [];
-    return __replace__($content, $cc);
+    return candy($content, $cc);
 }
 
 Hook::set([
