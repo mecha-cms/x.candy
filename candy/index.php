@@ -10,7 +10,7 @@ function v($content, array $lot = []) {
         return $content;
     }
     $a = \Plugin::state('candy');
-    $b = \Lot::get(null, []);
+    $b = \Lot::get();
     if (!empty($a['x'])) {
         $a['v'] = \extend($a['v'], $a['x']);
     }
