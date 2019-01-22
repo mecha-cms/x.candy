@@ -6,7 +6,7 @@ function x($content, array $lot = []) {
 }
 
 function v($content, array $lot = []) {
-    if (strpos($content, '%{') === false) {
+    if (\strpos($content, '%{') === false) {
         return $content;
     }
     $a = \Plugin::state('candy');
