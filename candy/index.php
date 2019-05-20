@@ -77,12 +77,12 @@ function v($content, array $lot = []) {
     if (\strpos($content, '%{') === false) {
         return $content;
     }
-    $a = \Plugin::state('candy');
+    $a = \plugin('candy');
     $b = $GLOBALS;
     if (!empty($a['x'])) {
-        $a['v'] = \extend($a['v'], $a['x']);
+        $a['v'] = \alter($a['v'], $a['x']);
     }
-    $b = \extend($b, $a['v']);
+    $b = \alter($b, $a['v']);
     $b['$'] = $b['page'] ?? [];
     return parse($content, $b);
 }
