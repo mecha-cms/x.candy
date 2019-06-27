@@ -63,7 +63,6 @@ function parse(string $s, $a = [], $x = "\n", $r = true) {
             $s = \str_replace('%{' . $k . '}%', s($v), $s);
             continue;
         }
-        // TODO: replace pattern(s) as in `format` function
     }
     return $s;
 }
