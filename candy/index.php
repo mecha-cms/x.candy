@@ -79,9 +79,9 @@ function v($content, array $lot = []) {
     $a = \plugin('candy');
     $b = $GLOBALS;
     if (!empty($a['x'])) {
-        $a['v'] = \alter($a['v'], $a['x']);
+        $a['v'] = \extend($a['v'], $a['x']);
     }
-    $b = \alter($b, $a['v']);
+    $b = \extend($b, $a['v']);
     $b['$'] = $b['page'] ?? [];
     return parse($content, $b);
 }
