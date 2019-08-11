@@ -4,13 +4,16 @@ return [
     'v' => [
         // Create your custom candy syntax here…
         'asset' => To::URL(constant('ASSET')),
-        'mecha' => '<a href="http://mecha-cms.com">Mecha CMS</a>',
+        'mecha' => '<a href="//mecha-cms.com">Mecha CMS</a>',
         // Or, override the default candy syntax here…
-        // 'language' => To::JSON($language->get())
+        // 'language' => $language
     ],
     'x' => [
-        // Disable `%{url.user}%` and `%{url.pass}%` syntax
-        'url.user' => false,
-        'url.pass' => false
+        '_COOKIE' => false,
+        '_FILES' => false,
+        '_GET' => false,
+        '_POST' => false,
+        '_REQUEST' => false,
+        '_SESSION' => false
     ]
 ];

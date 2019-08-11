@@ -1,105 +1,55 @@
-<?php namespace _\candy;
+<?php
 
-// Replace pattern to its value
-function parse(string $s, $a = [], $x = "\n", $r = true) {
-    if (!$s || \strpos($s, '%') === false) {
-        return $s;
-    }
-    $a = (array) $a;
-    foreach ($a as $k => $v) {
-        if (\is_array($v) || \is_object($v)) {
-            // `%{$.a.b.c}%`
-            if (\strpos($s, '%{' . $k . '.') !== false) {
-                $s = \preg_replace_callback('#\%\{' . x($k) . '(\.[a-z\d_]+)*\}\%#i', function($m) use($v) {
-                    $a = \explode('.', $m[1] ?? "");
-                    $b = \array_pop($a);
-                    if (isset($m[2])) {
-                        $fn = \substr($m[2], 1);
-                        $fn = \is_callable($fn) ? $fn : false;
-                    } else {
-                        $fn = false;
-                    }
-                    if ($b) {
-                        if (\is_object($v)) {
-                            if (!\method_exists($v, '__get') && !isset($v->{$b})) {
-                                return $m[0];
-                            }
-                            $v = $v->{$b};
-                        } else if (\is_array($v)) {
-                            if (!isset($v[$b])) {
-                                return $m[0];
-                            }
-                            $v = $v[$b];
-                        }
-                        if ($a) {
-                            if (!\is_array($v) && !\is_object($v)) {
-                                return $v;
-                            }
-                            while ($b = \array_pop($a)) {
-                                if (!\is_array($v) && !\is_object($v)) {
-                                    return $v;
-                                }
-                                if (\is_object($v)) {
-                                    if (!\method_exists($v, '__get') && !isset($v->{$b})) {
-                                        return $m[0];
-                                    }
-                                    $v = $v->{$b};
-                                } else if (\is_array($v)) {
-                                    $v = $v[$b] ?? $m[0];
-                                }
-                            }
-                            return $fn ? \call_user_func($fn, $v) : $v;
-                        }
-                    }
-                    return $fn ? \call_user_func($fn, $v) : $v;
-                }, $s);
-            }
-            // `%{$}%`
-            if (\is_object($v) && \method_exists($v, '__toString')) {
-                $s = \str_replace('%{' . $k . '}%', \strval($v), $s);
-            }
-        // `%{a}%`
-        } else if (\strpos($s, '%{' . $k . '}%') !== false) {
-            $s = \str_replace('%{' . $k . '}%', s($v), $s);
-            continue;
+namespace _\lot\x\candy {
+    // Replace pattern to its value
+    function v($content, $vars = [], $prefix = '%{', $suffix = '}%') {
+        if (!$content || !\is_string($content) || \strpos($content, $prefix) === false) {
+            return $content;
         }
-    }
-    return $s;
-}
-
-function x($content, array $lot = []) {
-    // Escape syntax is not available!
-    return $content;
-}
-
-function v($content, array $lot = []) {
-    if (\strpos($content, '%{') === false) {
+        foreach ((array) $vars as $k => $v) {
+            if (\is_array($v) || \is_object($v)) {
+                // `%{$.a.b.c}%`
+                if (\strpos($content, $prefix . '.') !== false) {
+                    $content = \preg_replace_callback('/' . \x($prefix . $k) . '(\.[a-z\d_]+)*' . \x($suffix) . '/i', function($m) use($v) {
+                        if ($a = \explode('.', $m[1] ?? "")) {
+                            while ($b = \array_shift($a)) {
+                                if (\is_array($v)) {
+                                    $v = $v[$b] ?? $m[0];
+                                } else if (\is_object($v)) {
+                                    $v = $v->{$b} ?? $m[0];
+                                }
+                            }
+                            return $v;
+                        }
+                        return $m[0];
+                    }, $content);
+                }
+                // `%{$}%`
+                if (\is_object($v) && \method_exists($v, '__toString')) {
+                    $content = \str_replace($prefix . $k . $suffix, \strval($v), $content);
+                }
+            // `%{a}%`
+            } else if (\strpos($content, $kk = $prefix . $k . $suffix) !== false) {
+                $v = \s($v);
+                $content = \str_replace($kk, \is_string($v) ? $v : \json_encode($v), $content);
+            }
+        }
         return $content;
     }
-    $a = \plugin('candy');
-    $b = $GLOBALS;
-    if (!empty($a['x'])) {
-        $a['v'] = \extend($a['v'], $a['x']);
-    }
-    $b = \extend($b, $a['v']);
-    $b['$'] = $b['page'] ?? [];
-    return parse($content, $b);
 }
 
-\Hook::set([
-    '*.content',
-    '*.css',
-    '*.description',
-    '*.image',
-    '*.js',
-    '*.link'
-], __NAMESPACE__ . "\\x", 0); // Same with the `_\block\x` stack!
-
-\Hook::set([
-    '*.content',
-    '*.css',
-    '*.description',
-    '*.image',
-    '*.js',
-    '*.link'
-], __NAMESPACE__ . "\\v", 1); // Same with the `_\block\v` stack!
+namespace _\lot\x {
+    function candy($content) {
+        $state = \state('candy');
+        $any = \array_replace($GLOBALS, $state['v'], $state['x']);
+        return candy\v($content, $any);
+    }
+    \Hook::set([
+        'page.content',
+        'page.css',
+        'page.description',
+        'page.image',
+        'page.js',
+        'page.link'
+    ], __NAMESPACE__ . "\\candy", 1); // Same with the `_\lot\x\block` stack! #TODO
+}
