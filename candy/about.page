@@ -20,7 +20,7 @@ Common patterns:
 
  - `%‌{‌date.year‌}‌%`
  - `%‌{‌date.month‌}‌%`
- - `%‌{‌date.en_us‌}‌%`
+ - `%‌{‌date.en‌}‌%`
  - …
 
 ### Language
