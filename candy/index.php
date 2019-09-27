@@ -40,7 +40,7 @@ namespace _\lot\x\candy {
 
 namespace _\lot\x {
     function candy($content) {
-        $state = \state('candy');
+        $state = \state('x.candy');
         $any = \array_replace($GLOBALS, $state['v'], $state['x']);
         return candy\v($content, $any);
     }
