@@ -8,27 +8,18 @@ version: 1.5.0
 
 Common patterns:
 
-### Configuration
+### State
 
  - `%‌{‌state.title‌}‌%`
  - `%‌{‌state.description‌}‌%`
- - `%‌{‌state.page.title‌}‌%`
- - `%‌{‌state.page.description‌}‌%`
+ - `%‌{‌state.language‌}‌%`
  - …
 
-### Date
+### Time
 
- - `%‌{‌date.year‌}‌%`
- - `%‌{‌date.month‌}‌%`
- - `%‌{‌date.en‌}‌%`
- - …
-
-### Language
-
- - `%‌{‌language.yes‌}‌%`
- - `%‌{‌language.no‌}‌%`
- - `%‌{‌language.doSubmit‌}‌%`
- - `%‌{‌language.doCancel‌}‌%`
+ - `%‌{‌time.year‌}‌%`
+ - `%‌{‌time.month‌}‌%`
+ - `%‌{‌time.en‌}‌%`
  - …
 
 ### Page
@@ -42,8 +33,6 @@ Common patterns:
 
 ### Site
 
-Alias for _$config_.
-
  - `%‌{‌site.title‌}‌%`
  - `%‌{‌site.description‌}‌%`
  - `%‌{‌site.page.title‌}‌%`
@@ -53,14 +42,13 @@ Alias for _$config_.
 ### URL
 
  - `%‌{‌url‌}‌%` → `http://127.0.0.1/a`
- - `%‌{‌url.scheme‌}‌%` → `http`
  - `%‌{‌url.protocol‌}‌%` → `http://`
  - `%‌{‌url.host‌}‌%` → `127.0.0.1`
  - `%‌{‌url.port‌}‌%` → `80`
- - `%‌{‌url.directory‌}‌%` → `a`
- - `%‌{‌url.path‌}‌%` → `foo/bar`
+ - `%‌{‌url.d‌}‌%` → `/a`
+ - `%‌{‌url.path‌}‌%` → `/foo/bar`
  - `%‌{‌url.query‌}‌%` → `?foo=bar&baz=qux`
- - `%‌{‌url.current‌}‌%` → `http://127.0.0.1/a/foo/bar`
+ - `%‌{‌url.current‌}‌%` → `http://127.0.0.1/a/foo/bar?foo=bar&baz=qux`
 
 ---
 

@@ -3,13 +3,13 @@
 namespace _\lot\x\candy {
     // Replace pattern to its value
     function v($content, $vars = [], $prefix = '%{', $suffix = '}%') {
-        if (!$content || !\is_string($content) || \strpos($content, $prefix) === false) {
+        if (!$content || !\is_string($content) || false === \strpos($content, $prefix)) {
             return $content;
         }
         foreach ((array) $vars as $k => $v) {
             if (\is_array($v) || \is_object($v)) {
                 // `%{$.a.b.c}%`
-                if (\strpos($content, $prefix . '.') !== false) {
+                if (false !== \strpos($content, $prefix . '.')) {
                     $content = \preg_replace_callback('/' . \x($prefix . $k) . '(\.[a-z\d_]+)*' . \x($suffix) . '/i', function($m) use($v) {
                         if ($a = \explode('.', $m[1] ?? "")) {
                             while ($b = \array_shift($a)) {
@@ -29,7 +29,7 @@ namespace _\lot\x\candy {
                     $content = \str_replace($prefix . $k . $suffix, \strval($v), $content);
                 }
             // `%{a}%`
-            } else if (\strpos($content, $kk = $prefix . $k . $suffix) !== false) {
+            } else if (false !== \strpos($content, $kk = $prefix . $k . $suffix)) {
                 $v = \s($v);
                 $content = \str_replace($kk, \is_string($v) ? $v : \json_encode($v), $content);
             }
@@ -40,16 +40,17 @@ namespace _\lot\x\candy {
 
 namespace _\lot\x {
     function candy($content) {
-        $state = \state('x.candy');
-        $any = \array_replace($GLOBALS, $state['v'], $state['x']);
+        $state = \State::get('x.candy', true) ?? [];
+        $any = \array_replace($GLOBALS, $state['v'] ?? [], $state['x'] ?? []);
         return candy\v($content, $any);
     }
     \Hook::set([
         'page.content',
-        'page.css',
+        'page.css', // `.\lot\x\art`
         'page.description',
-        'page.image',
-        'page.js',
+        'page.excerpt', // `.\lot\x\excerpt`
+        'page.image', // `.\lot\x\image`
+        'page.js', // `.\lot\x\art`
         'page.link'
-    ], __NAMESPACE__ . "\\candy", 1); // Same with the `_\lot\x\block` stack! #TODO
+    ], __NAMESPACE__ . "\\candy", 1); // Same with the `_\lot\x\block` stack!
 }
