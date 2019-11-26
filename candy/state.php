@@ -3,7 +3,7 @@
 return [
     'v' => [
         // Create your custom candy syntax here…
-        'asset' => To::URL(constant('ASSET')),
+        'asset' => To::URL(LOT . DS . 'asset'),
         'mecha' => '<a href="//mecha-cms.com">Mecha CMS</a>',
     ],
     'x' => [
