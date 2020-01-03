@@ -9,9 +9,9 @@ namespace _\lot\x\candy {
         foreach ((array) $vars as $k => $v) {
             if (\is_array($v) || \is_object($v)) {
                 // `%{$.a.b.c}%`
-                if (false !== \strpos($content, $prefix . '.')) {
-                    $content = \preg_replace_callback('/' . \x($prefix . $k) . '(\.[a-z\d_]+)*' . \x($suffix) . '/i', function($m) use($v) {
-                        if ($a = \explode('.', $m[1] ?? "")) {
+                if (false !== \strpos($content, $prefix . $k . '.')) {
+                    $content = \preg_replace_callback('/' . \x($prefix . $k) . '(\.\w+)*' . \x($suffix) . '/i', function($m) use($v) {
+                        if ($a = \explode('.', \trim($m[1] ?? "", '.'))) {
                             while ($b = \array_shift($a)) {
                                 if (\is_array($v)) {
                                     $v = $v[$b] ?? $m[0];
@@ -42,14 +42,12 @@ namespace _\lot\x {
     function candy($content) {
         $state = \State::get('x.candy', true) ?? [];
         $any = \array_replace($GLOBALS, $state['v'] ?? [], $state['x'] ?? []);
-        return candy\v($content, $any);
+        return \_\lot\x\candy\v($content, $any);
     }
     \Hook::set([
         'page.content',
         'page.css', // `.\lot\x\art`
         'page.description',
-        'page.excerpt', // `.\lot\x\excerpt`
-        'page.image', // `.\lot\x\image`
         'page.js', // `.\lot\x\art`
         'page.link'
     ], __NAMESPACE__ . "\\candy", 1); // Same with the `_\lot\x\block` stack!
