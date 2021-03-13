@@ -1,8 +1,8 @@
 <?php
 
-namespace _\lot\x\candy {
+namespace x\candy {
     // Replace pattern to its value
-    function v($content, $vars = [], $prefix = '%{', $suffix = '}%') {
+    function pattern($content, $vars = [], $prefix = '%{', $suffix = '}%') {
         if (!$content || !\is_string($content) || false === \strpos($content, $prefix)) {
             return $content;
         }
@@ -38,11 +38,11 @@ namespace _\lot\x\candy {
     }
 }
 
-namespace _\lot\x {
+namespace x {
     function candy($content) {
         $state = \State::get('x.candy', true) ?? [];
         $any = \array_replace($GLOBALS, $state['v'] ?? [], $state['x'] ?? []);
-        return \_\lot\x\candy\v($content, $any);
+        return \x\candy\pattern($content, $any);
     }
     \Hook::set([
         'page.content',
@@ -50,5 +50,5 @@ namespace _\lot\x {
         'page.description',
         'page.js', // `.\lot\x\art`
         'page.link'
-    ], __NAMESPACE__ . "\\candy", 1); // Same with the `_\lot\x\block` stack!
+    ], __NAMESPACE__ . "\\candy", 1); // Same with the `x\block` stack!
 }
