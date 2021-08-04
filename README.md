@@ -1,5 +1,5 @@
-Candy Syntax Extension for Mecha
-================================
+Candy Syntax Extension for [Mecha](https://github.com/mecha-cms/mecha)
+======================================================================
 
 Release Notes
 -------------
