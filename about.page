@@ -11,13 +11,13 @@ version: 2.0.0
 The name “candy” was retained for its legacy syntax, which is a syntax delimited by an opening <code>&#x25;&#x7b;</code>
 and a closing <code>&#x7d;&#x25;</code>, making it look like a candy (at least that’s how I saw it):
 
-<pre><code class="md">Your name is &#x25;&#x7b;user.author&#x7d;&#x25;, obviously!</code></pre>
+<pre><code class="html">Your name is &#x25;&#x7b;user.author&#x7d;&#x25;, obviously!</code></pre>
 
 Looking at how the web has evolved to date, it seems that people are more likely to prefer the variable syntax that was
 introduced by [Jinja][jinja], [Liquid][liquid], [Mustache][mustache], and [Twig][twig]. And so, I decided to support a
 similar syntax without having to incorporate it into a new extension to reduce maintenance frequency:
 
-<pre><code class="md">Your name is &#x7b;&#x7b; user.author &#x7d;&#x7d;, obviously!</code></pre>
+<pre><code class="html">Your name is &#x7b;&#x7b; user.author &#x7d;&#x7d;, obviously!</code></pre>
 
  [jinja]: https://jinja.palletsprojects.com/en/3.1.x/templates#variables
  [liquid]: https://shopify.github.io/liquid/tags/variable
@@ -43,7 +43,7 @@ $GLOBALS['server_host'] = $_SERVER['HTTP_HOST'];
 
 You can then get the value by inserting this syntax into the page content:
 
-<pre><code class="md">&#x7b;&#x7b; server.host &#x7d;&#x7d;
+<pre><code class="html">&#x7b;&#x7b; server.host &#x7d;&#x7d;
 
 &#x7b;&#x7b; server_host &#x7d;&#x7d;</code></pre>
 
