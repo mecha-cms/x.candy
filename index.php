@@ -50,13 +50,21 @@ function get(string $key): string {
                 $to = $from->offsetGet($k);
             } else if (\method_exists($from, '__call')) {
                 $to = $from->__call($f2p);
-            } else if (\method_exists($from, '__invoke')) {
-                $to = $from->__invoke();
-            } else if (\method_exists($from, '__toString')) {
-                $to = $from->__toString();
             }
             $from = $to;
             continue;
+        }
+    }
+    if (\is_array($from)) {
+        return \json_encode($from);
+    }
+    if (\is_object($from)) {
+        if (\method_exists($from, '__invoke')) {
+            $from = $from->__invoke();
+        } else if (\method_exists($from, '__toString')) {
+            $from = $from->__toString();
+        } else {
+            $from = \json_encode($from);
         }
     }
     return \s($from);
