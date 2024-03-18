@@ -14,8 +14,8 @@ function e(string $content) {
         if ($raw = 0 === \strpos($m[1], '&')) {
             $m[1] = \trim(\substr($m[1], 1));
         }
-        $test = $GLOBALS[\strstr($m[1], '.', true) ?: $m[1]] ?? [];
-        if (null === $test) {
+        $test = \lot(\strstr($m[1], '.', true) ?: $m[1]) ?? [];
+        if ([] === $test) {
             return "";
         }
         if (\is_object($test) || \is_scalar($test)) {
@@ -27,7 +27,7 @@ function e(string $content) {
 }
 
 function get(string $key): string {
-    $from = $GLOBALS ?? [];
+    $from = \lot() ?? [];
     if (false === \strpos($key = \strtr($key, ["\\." => \P]), '.')) {
         return $from[\strtr($key, [\P => '.'])] ?? "";
     }

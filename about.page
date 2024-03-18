@@ -5,7 +5,7 @@ icon: 'M15.54 8.46C17.5 10.42 17.5 13.58 15.54 15.54S10.42 17.5 8.47 15.54 6.5 1
 color: '#f74f57'
 author: Taufik Nurrohman
 type: Markdown
-version: 2.0.0
+version: 2.0.1
 ...
 
 The name “candy” was retained for its legacy syntax, which is a syntax delimited by an opening <code>&#x25;&#x7b;</code>
